@@ -1,29 +1,47 @@
 class ArmazenamentoDados:
-    def salvar_pedido(self, pedido, total):
-        with open("pedidos.txt", "a") as arquivo:
-            arquivo.write(f"Pedido: {pedido}\nTotal: R${total:.2f}\n\n")
+    def __init__(self):
+        self.pedidos = {}
+
+    def salvar_pedido(self, pedido_id, pedido, total):
+        self.pedidos[pedido_id] = (pedido, total)
+        with open(f"pedidos/pedido_{pedido_id}.txt", "w") as arquivo:
+            arquivo.write(f"Pedido:\n{pedido}\nTotal: R${total:.2f}\n\n")
         print("Pedido salvo com sucesso.")
 
     def recuperar_pedido(self, pedido_id):
-        # Implementação para recuperar um pedido por ID
-        pass
+        pedido, _ = self.pedidos.get(pedido_id, (None, None))
+        return pedido
 
     def obter_total_vendas(self):
-        # Implementação para obter o total de vendas
-        pass
+        total_vendas = sum(total for _, total in self.pedidos.values())
+        return total_vendas
 
     def obter_total_por_produto(self):
-        # Implementação para obter o total de vendas por produto
-        pass
+        total_por_produto = {}
+        for pedido, _ in self.pedidos.values():
+            for produto in pedido.produtos:
+                if produto.nome in total_por_produto:
+                    total_por_produto[produto.nome] += produto.preco
+                else:
+                    total_por_produto[produto.nome] = produto.preco
+        return total_por_produto
 
-    def aplicar_desconto(self, percentual):
-        # Implementação para aplicar desconto a produtos no armazenamento
-        pass
+    def aplicar_desconto(self, pedido_id, percentual):
+        pedido = self.recuperar_pedido(pedido_id)
+        if pedido:
+            for produto in pedido.produtos:
+                produto.desconto(percentual)
+            self.pedidos[pedido_id] = (pedido, pedido.calcular_total())
 
-    def aumentar_preco_produto(self, indice, percentual):
-        # Implementação para aumentar o preço de um produto no armazenamento
-        pass
+    def aumentar_preco_produto(self, pedido_id, indice, percentual):
+        pedido = self.recuperar_pedido(pedido_id)
+        if pedido:
+            produto = pedido.produtos[indice]
+            produto.aumentar_preco(percentual)
+            self.pedidos[pedido_id] = (pedido, pedido.calcular_total())
 
     def adicionar_produto_especifico(self, pedido_id, produto):
-        # Implementação para adicionar um produto específico ao pedido no armazenamento
-        pass
+        pedido = self.recuperar_pedido(pedido_id)
+        if pedido:
+            pedido.adicionar_produto(produto)
+            self.pedidos[pedido_id] = (pedido, pedido.calcular_total())

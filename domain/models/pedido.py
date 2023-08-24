@@ -6,8 +6,8 @@ class Pedido:
         self.produtos.append(produto)
 
     def calcular_total(self):
-        # Implementação do cálculo do total do pedido
-        pass  # Você deve adicionar a implementação real aqui
+        total = sum(produto.preco for produto in self.produtos)
+        return total
 
     def exibir_pedido(self):
         return "\n".join(str(produto) for produto in self.produtos)
@@ -17,21 +17,24 @@ class Pedido:
         pass  # Você deve adicionar a implementação real aqui
 
     def atualizar_produto(self, indice, novo_produto):
-        # Implementação para atualizar um produto no pedido
-        pass  # Você deve adicionar a implementação real aqui
+        self.produtos[indice] = novo_produto
     
     def calcular_total_por_produto(self):
-        # Implementação para calcular o total por produto
-        pass
+        total_por_produto = {}
+        for produto in self.produtos:
+            if produto.nome in total_por_produto:
+                total_por_produto[produto.nome] += produto.preco
+            else:
+                total_por_produto[produto.nome] = produto.preco
+        return total_por_produto
     
     def aplicar_desconto(self, percentual):
-        # Implementação para aplicar desconto a todos os produtos do pedido
-        pass
+        for produto in self.produtos:
+            produto.desconto(percentual)
     
     def aumentar_preco_produto(self, indice, percentual):
-        # Implementação para aumentar o preço de um produto no pedido
-        pass
+        produto = self.produtos[indice]
+        produto.aumentar_preco(percentual)
     
     def adicionar_produto_especifico(self, produto):
-        # Implementação para adicionar um produto específico ao pedido
-        pass
+        self.produtos.append(produto)

@@ -1,5 +1,5 @@
 from domain.models.pedido import Pedido
-from infrastructure.storage.armazenamento_dados import ArmazenamentoDados
+from domain.repository.pedido_repository import PedidoRepository
 
 class PedidoService:
     def __init__(self, pedido_repository):
@@ -7,28 +7,30 @@ class PedidoService:
 
     def processar_pedido(self, pedido):
         total = pedido.calcular_total()
-        self.pedido_repository.salvar_pedido(pedido.exibir_pedido(), total)
+        pedido_id = self.pedido_repository.salvar_pedido(pedido.exibir_pedido(), total)
+        return pedido_id
 
-    def exibir_resumo_pedido(self, pedido):
-        # Chamada para exibir resumo do pedido
-        pass
+    def exibir_resumo_pedido(self, pedido_id):
+        pedido = self.pedido_repository.recuperar_pedido(pedido_id)
+        return pedido.exibir_resumo()
 
     def exibir_total_vendas(self):
-        # Chamada para exibir total de vendas
-        pass
+        return self.pedido_repository.obter_total_vendas()
 
     def exibir_total_por_produto(self):
-        # Chamada para exibir total de vendas por produto
-        pass
+        return self.pedido_repository.obter_total_por_produto()
 
-    def aplicar_desconto(self, percentual):
-        # Chamada para aplicar desconto a produtos no pedido
-        pass
+    def aplicar_desconto(self, pedido_id, percentual):
+        pedido = self.pedido_repository.recuperar_pedido(pedido_id)
+        pedido.aplicar_desconto(percentual)
+        self.pedido_repository.atualizar_pedido(pedido_id, pedido)
 
-    def aumentar_preco_produto(self, indice, percentual):
-        # Chamada para aumentar preço de um produto
-        pass
+    def aumentar_preco_produto(self, pedido_id, indice, percentual):
+        pedido = self.pedido_repository.recuperar_pedido(pedido_id)
+        pedido.aumentar_preco_produto(indice, percentual)
+        self.pedido_repository.atualizar_pedido(pedido_id, pedido)
 
-    def adicionar_produto_especifico(self, pedido, produto):
-        # Chamada para adicionar um produto específico ao pedido
-        pass
+    def adicionar_produto_ao_pedido(self, pedido_id, produto):
+        pedido = self.pedido_repository.recuperar_pedido(pedido_id)
+        pedido.adicionar_produto_especifico(produto)
+        self.pedido_repository.atualizar_pedido(pedido_id, pedido)

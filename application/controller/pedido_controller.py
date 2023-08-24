@@ -30,3 +30,7 @@ class PedidoController:
     def aumentar_preco_produto(self):
         # Chamada para aumentar preço de um produto
         pass
+
+    def adicionar_produto_ao_pedido(self):
+        # Chamada para adicionar um produto específico a um pedido
+        pass

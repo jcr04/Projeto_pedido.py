@@ -24,3 +24,7 @@ class PedidoRepository:
     def aumentar_preco_produto(self, indice, percentual):
         # Implementação para aumentar o preço de um produto no armazenamento
         pass
+
+    def adicionar_produto_especifico(self, pedido_id, produto):
+        # Implementação para adicionar um produto específico ao pedido no armazenamento
+        pass

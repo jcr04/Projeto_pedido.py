@@ -31,3 +31,7 @@ class Pedido:
     def aumentar_preco_produto(self, indice, percentual):
         # Implementação para aumentar o preço de um produto no pedido
         pass
+    
+    def adicionar_produto_especifico(self, produto):
+        # Implementação para adicionar um produto específico ao pedido
+        pass

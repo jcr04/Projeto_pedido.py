@@ -28,3 +28,7 @@ class PedidoService:
     def aumentar_preco_produto(self, indice, percentual):
         # Chamada para aumentar preço de um produto
         pass
+
+    def adicionar_produto_especifico(self, pedido, produto):
+        # Chamada para adicionar um produto específico ao pedido
+        pass

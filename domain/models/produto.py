@@ -17,3 +17,6 @@ class Produto:
 
     def aumentar_preco(self, percentual):
         self.preco += self.preco * percentual / 100
+
+    def aplicar_promocao(self, nova_preco):
+        self.preco = nova_preco

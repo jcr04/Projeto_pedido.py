@@ -1,4 +1,5 @@
 from domain.models.pedido import Pedido
+from domain.models.produto import Produto
 
 class PedidoController:
     def __init__(self, pedido_service):
@@ -6,7 +7,9 @@ class PedidoController:
 
     def processar_pedido(self):
         pedido = Pedido()
-        produto = input("Digite o nome do produto a ser adicionado ao pedido: ")
+        produto_nome = input("Digite o nome do produto a ser adicionado ao pedido: ")
+        produto_preco = float(input("Digite o preço do produto: "))
+        produto = Produto(produto_nome, produto_preco)
         pedido.adicionar_produto(produto)
         self.pedido_service.processar_pedido(pedido)
         print("Pedido processado com sucesso!")

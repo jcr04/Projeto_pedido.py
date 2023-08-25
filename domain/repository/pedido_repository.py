@@ -1,5 +1,7 @@
 import uuid
 
+from domain.models.pedido import Pedido
+
 
 class PedidoRepository:
     def __init__(self, armazenamento_dados):
@@ -32,14 +34,18 @@ class PedidoRepository:
         total_vendas = sum(total for _, total in self.pedidos.values())
         return total_vendas
 
-    def obter_total_por_produto(self):
+    def obter_total_por_produto(self, pedido):
         total_por_produto = {}
-        for pedido, _ in self.pedidos.values():
-            for produto in pedido.produtos:
-                if produto.nome in total_por_produto:
-                    total_por_produto[produto.nome] += produto.preco
-                else:
-                    total_por_produto[produto.nome] = produto.preco
+
+        if not isinstance(pedido, Pedido):
+            return "Objeto do tipo Pedido é esperado."
+
+        for produto in pedido.produtos:
+            if produto.nome in total_por_produto:
+                total_por_produto[produto.nome] += produto.preco
+            else:
+                total_por_produto[produto.nome] = produto.preco
+
         return total_por_produto
 
     def aplicar_desconto(self, pedido_id, percentual):

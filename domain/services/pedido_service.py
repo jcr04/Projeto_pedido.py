@@ -10,19 +10,22 @@ class PedidoService:
         pedido_id = self.pedido_repository.salvar_pedido(pedido.exibir_pedido(), total)
         return pedido_id
 
-    def exibir_resumo_pedido(self, pedido_id):
-        pedido = self.pedido_repository.recuperar_pedido(pedido_id)
-        
-        if pedido is None:
+    def exibir_resumo_pedido(self, pedido):
+        pedido_id = self.pedido_repository.encontrar_pedido_id(pedido)
+        if pedido_id is None:
             return "Pedido não encontrado."
-        
         return pedido.exibir_resumo()
 
     def exibir_total_vendas(self):
         return self.pedido_repository.obter_total_vendas()
 
-    def exibir_total_por_produto(self):
-        return self.pedido_repository.obter_total_por_produto()
+    def exibir_total_por_produto(self, pedido_id):
+        pedido = self.pedido_repository.recuperar_pedido(pedido_id)
+
+        if pedido is None:
+            return "Pedido não encontrado."
+
+        return self.pedido_repository.obter_total_por_produto(pedido)
 
     def aplicar_desconto(self, pedido_id, percentual):
         pedido = self.pedido_repository.recuperar_pedido(pedido_id)

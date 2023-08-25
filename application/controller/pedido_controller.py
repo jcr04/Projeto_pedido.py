@@ -14,8 +14,8 @@ class PedidoController:
         self.pedido_service.processar_pedido(pedido)
         print("Pedido processado com sucesso!")
 
-    def exibir_resumo_pedido(self, pedido_id):
-        resumo = self.pedido_service.exibir_resumo_pedido(pedido_id)
+    def exibir_resumo_pedido(self, pedido):
+        resumo = self.pedido_service.exibir_resumo_pedido(pedido)
         print(resumo)
 
     def exibir_total_vendas(self):

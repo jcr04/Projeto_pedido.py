@@ -12,6 +12,10 @@ class PedidoService:
 
     def exibir_resumo_pedido(self, pedido_id):
         pedido = self.pedido_repository.recuperar_pedido(pedido_id)
+        
+        if pedido is None:
+            return "Pedido não encontrado."
+        
         return pedido.exibir_resumo()
 
     def exibir_total_vendas(self):

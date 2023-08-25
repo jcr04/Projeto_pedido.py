@@ -1,16 +1,27 @@
+import uuid
+
+
 class PedidoRepository:
     def __init__(self, armazenamento_dados):
         self.armazenamento_dados = armazenamento_dados
         self.pedidos = {}
 
     def salvar_pedido(self, pedido, total):
-        pedido_id = len(self.pedidos) + 1
+        pedido_id = str(uuid.uuid4())  # Gera um ID único
         self.pedidos[pedido_id] = (pedido, total)
         self.armazenamento_dados.salvar_pedido(pedido_id, pedido, total)
         return pedido_id
+    
+    def encontrar_pedido_id(self, pedido):
+        for pedido_id, (pedido_atual, _) in self.pedidos.items():
+            if pedido == pedido_atual:
+                return pedido_id
+        return None
 
     def recuperar_pedido(self, pedido_id):
         pedido, _ = self.pedidos.get(pedido_id, (None, None))
+        if pedido is None:
+            return None
         return pedido
 
     def atualizar_pedido(self, pedido_id, novo_pedido):

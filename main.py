@@ -33,15 +33,25 @@ def main():
             print("Pedido processado com sucesso!")
 
         elif opcao == "2":
+            # Recuperar o pedido_id corretamente (pode ser solicitado ao usuário)
             pedido_id = input("Digite o ID do pedido: ")
-            pedido_controller.exibir_resumo_pedido(pedido_id)
+            pedido = pedido_repository.recuperar_pedido(pedido_id)
+            if pedido is not None:
+                pedido_controller.exibir_resumo_pedido(pedido)
+            else:
+                print("Pedido não encontrado.")
 
         elif opcao == "3":
             pedido_controller.exibir_total_vendas()
 
         elif opcao == "4":
+            # Recuperar o pedido_id corretamente (pode ser solicitado ao usuário)
             pedido_id = input("Digite o ID do pedido: ")
-            pedido_controller.exibir_total_por_produto(pedido_id)
+            pedido = pedido_repository.recuperar_pedido(pedido_id)
+            if pedido is not None:
+                pedido_controller.exibir_total_por_produto(pedido)
+            else:
+                print("Pedido não encontrado.")
 
         elif opcao == "5":
             pedido_id = input("Digite o ID do pedido: ")

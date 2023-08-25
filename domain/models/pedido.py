@@ -38,3 +38,7 @@ class Pedido:
     
     def adicionar_produto_especifico(self, produto):
         self.produtos.append(produto)
+        
+    def calcular_total_com_desconto(self, percentual):
+        total = self.calcular_total()
+        return total - total * percentual / 100

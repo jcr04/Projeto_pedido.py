@@ -34,3 +34,13 @@ class PedidoService:
         pedido = self.pedido_repository.recuperar_pedido(pedido_id)
         pedido.adicionar_produto_especifico(produto)
         self.pedido_repository.atualizar_pedido(pedido_id, pedido)
+    
+    def aplicar_promocao(self, pedido_id, produto, novo_preco):
+        pedido = self.pedido_repository.recuperar_pedido(pedido_id)
+        for p in pedido.produtos:
+            if p.nome == produto:
+                p.aplicar_promocao(novo_preco)
+        self.pedido_repository.atualizar_pedido(pedido_id, pedido)
+
+    def listar_pedidos(self):
+        return self.pedido_repository.listar_pedidos()

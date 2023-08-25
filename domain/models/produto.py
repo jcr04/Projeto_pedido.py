@@ -20,3 +20,10 @@ class Produto:
 
     def aplicar_promocao(self, nova_preco):
         self.preco = nova_preco
+# criando novos produtos        
+produto_camisa = Produto("Camisa", 39.99)
+produto_calcas = Produto("Calças", 69.99)
+produto_sapato = Produto("Sapato", 129.99)
+produto_bolsa = Produto("Bolsa", 79.99)
+produto_oculos = Produto("Óculos de Sol", 59.99)
+produto_chapeu = Produto("Chapéu", 29.99)

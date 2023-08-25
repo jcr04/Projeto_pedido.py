@@ -45,3 +45,9 @@ class ArmazenamentoDados:
         if pedido:
             pedido.adicionar_produto(produto)
             self.pedidos[pedido_id] = (pedido, pedido.calcular_total())
+
+    def listar_pedidos(self):
+        pedidos = {}
+        for pedido_id, (pedido, total) in self.pedidos.items():
+            pedidos[pedido_id] = (pedido, total)
+        return pedidos

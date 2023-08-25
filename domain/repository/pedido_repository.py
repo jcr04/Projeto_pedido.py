@@ -48,3 +48,9 @@ class PedidoRepository:
         if pedido:
             pedido.adicionar_produto_especifico(produto)
             self.atualizar_pedido(pedido_id, pedido)
+    
+    def listar_pedidos(self):
+        pedidos = {}
+        for pedido_id, (pedido, total) in self.pedidos.items():
+            pedidos[pedido_id] = total
+        return pedidos

@@ -35,3 +35,12 @@ class PedidoController:
     def adicionar_produto_ao_pedido(self, pedido_id, produto):
         self.pedido_service.adicionar_produto_ao_pedido(pedido_id, produto)
         print("Produto adicionado ao pedido com sucesso!")
+    
+    def aplicar_promocao(self, pedido_id, produto, novo_preco):
+        self.pedido_service.aplicar_promocao(pedido_id, produto, novo_preco)
+        print(f"Promoção aplicada com sucesso ao produto {produto}!")
+
+    def listar_pedidos(self):
+        pedidos = self.pedido_service.listar_pedidos()
+        for pedido_id, total in pedidos.items():
+            print(f"Pedido ID: {pedido_id} - Total: R${total:.2f}")

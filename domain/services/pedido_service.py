@@ -29,6 +29,10 @@ class PedidoService:
 
     def aplicar_desconto(self, pedido_id, percentual):
         pedido = self.pedido_repository.recuperar_pedido(pedido_id)
+        
+        if pedido is None:
+            return "Pedido não encontrado."
+        
         pedido.aplicar_desconto(percentual)
         self.pedido_repository.atualizar_pedido(pedido_id, pedido)
 

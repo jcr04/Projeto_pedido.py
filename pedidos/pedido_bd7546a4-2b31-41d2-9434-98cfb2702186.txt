@@ -1,0 +1,4 @@
+Pedido:
+Camisa
+Total: R$149.99
+

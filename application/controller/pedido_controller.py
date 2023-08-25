@@ -22,8 +22,8 @@ class PedidoController:
         total = self.pedido_service.exibir_total_vendas()
         print(f"Total de Vendas: R${total:.2f}")
 
-    def exibir_total_por_produto(self):
-        total_por_produto = self.pedido_service.exibir_total_por_produto()
+    def exibir_total_por_produto(self, pedido_id):
+        total_por_produto = self.pedido_service.exibir_total_por_produto(pedido_id)
         for produto, total in total_por_produto.items():
             print(f"{produto}: R${total:.2f}")
 

@@ -83,3 +83,6 @@ class PedidoRepository:
             Produto("Chapéu", 29.99)
         ]
         return produtos
+    
+    def existe_pedido(self, pedido_id):
+        return pedido_id in self.pedidos

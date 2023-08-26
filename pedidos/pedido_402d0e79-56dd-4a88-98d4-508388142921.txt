@@ -1,0 +1,5 @@
+Pedido:
+Sapato
+Bolsa
+Total: R$209.98
+

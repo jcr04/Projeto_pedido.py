@@ -35,7 +35,17 @@ class PedidoController:
         print("Produto adicionado ao pedido com sucesso!")
     
     def aplicar_promocao(self, pedido_id, produto, novo_preco):
-        self.pedido_service.aplicar_promocao(pedido_id, produto, novo_preco)
+        pedido = self.pedido_repository.recuperar_pedido(pedido_id)
+        
+        if pedido is None:
+            print("Pedido não encontrado.")
+            return
+        
+        for p in pedido.produtos:
+            if p.nome == produto:
+                p.aplicar_promocao(novo_preco)
+        
+        self.pedido_repository.atualizar_pedido(pedido_id, pedido)
         print(f"Promoção aplicada com sucesso ao produto {produto}!")
 
     def listar_pedidos(self):

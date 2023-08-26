@@ -1,3 +1,4 @@
+from domain.models.pedido import Pedido
 from domain.models.produto import Produto
 from application.controller.pedido_controller import PedidoController
 from domain.services.pedido_service import PedidoService
@@ -29,8 +30,30 @@ def main():
         opcao = input("Escolha uma opção: ")
 
         if opcao == "1":
-            pedido_id = pedido_controller.processar_pedido()
-            print("Pedido processado com sucesso!")
+            pedido_controller.exibir_produtos_disponiveis()  # Mostra os produtos disponíveis
+            produtos_escolhidos = []
+            while True:
+                escolha_produto = input("Escolha um produto (ou '0' para finalizar): ")
+                if escolha_produto == "0":
+                    break
+                elif escolha_produto.isdigit():
+                    index_produto = int(escolha_produto) - 1
+                    if 0 <= index_produto < len(pedido_service.produtos_disponiveis()):
+                        produtos_escolhidos.append(pedido_service.produtos_disponiveis()[index_produto])
+                        print(f"{pedido_service.produtos_disponiveis()[index_produto].nome} adicionado ao pedido.")
+                    else:
+                        print("Escolha inválida.")
+                else:
+                    print("Escolha inválida.")
+            
+            if produtos_escolhidos:
+                pedido = Pedido()
+                for produto in produtos_escolhidos:
+                    pedido.adicionar_produto(produto)
+                pedido_id = pedido_controller.processar_pedido(pedido)
+                print("Pedido processado com sucesso!")
+            else:
+                print("Nenhum produto foi adicionado ao pedido.")
 
         elif opcao == "2":
             # Recuperar o pedido_id corretamente (pode ser solicitado ao usuário)

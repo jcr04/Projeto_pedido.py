@@ -47,3 +47,7 @@ class PedidoController:
         pedidos = self.pedido_service.listar_pedidos()
         for pedido_id, total in pedidos.items():
             print(f"Pedido ID: {pedido_id} - Total: R${total:.2f}")
+            
+    def exibir_produtos_disponiveis(self):
+        for index, produto in enumerate(self.pedido_service.produtos_disponiveis()):
+            print(f"{index + 1}. {produto.nome} - R${produto.preco:.2f}")

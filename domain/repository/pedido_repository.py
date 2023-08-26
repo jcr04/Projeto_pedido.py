@@ -1,6 +1,7 @@
 import uuid
 
 from domain.models.pedido import Pedido
+from domain.models.produto import Produto
 
 
 class PedidoRepository:
@@ -71,3 +72,14 @@ class PedidoRepository:
         for pedido_id, (pedido, total) in self.pedidos.items():
             pedidos[pedido_id] = total
         return pedidos
+
+    def produtos_disponiveis(self):
+        produtos = [
+            Produto("Camisa", 39.99),
+            Produto("Calças", 69.99),
+            Produto("Sapato", 129.99),
+            Produto("Bolsa", 79.99),
+            Produto("Óculos de Sol", 59.99),
+            Produto("Chapéu", 29.99)
+        ]
+        return produtos

@@ -55,3 +55,6 @@ class PedidoService:
 
     def listar_pedidos(self):
         return self.pedido_repository.listar_pedidos()
+
+    def produtos_disponiveis(self):
+        return self.pedido_repository.produtos_disponiveis()

@@ -5,13 +5,8 @@ class PedidoController:
     def __init__(self, pedido_service):
         self.pedido_service = pedido_service
 
-    def processar_pedido(self):
-        pedido = Pedido()
-        produto_nome = input("Digite o nome do produto a ser adicionado ao pedido: ")
-        produto_preco = float(input("Digite o preço do produto: "))
-        produto = Produto(produto_nome, produto_preco)
-        pedido.adicionar_produto(produto)
-        self.pedido_service.processar_pedido(pedido)
+    def processar_pedido(self, pedido):
+        self.pedido_service.processar_pedido(pedido)  # Passe o pedido como argumento
         print("Pedido processado com sucesso!")
 
     def exibir_resumo_pedido(self, pedido):
@@ -49,5 +44,6 @@ class PedidoController:
             print(f"Pedido ID: {pedido_id} - Total: R${total:.2f}")
             
     def exibir_produtos_disponiveis(self):
-        for index, produto in enumerate(self.pedido_service.produtos_disponiveis()):
-            print(f"{index + 1}. {produto.nome} - R${produto.preco:.2f}")
+        produtos = self.pedido_service.produtos_disponiveis()
+        for i, produto in enumerate(produtos, start=1):
+            print(f"{i}. {produto.nome} - R${produto.preco:.2f}")

@@ -50,10 +50,11 @@ def main():
                 pedido = Pedido()
                 for produto in produtos_escolhidos:
                     pedido.adicionar_produto(produto)
-                pedido_id = pedido_controller.processar_pedido(pedido)
+                pedido_controller.processar_pedido(pedido)  # Passe o pedido como argumento
                 print("Pedido processado com sucesso!")
             else:
                 print("Nenhum produto foi adicionado ao pedido.")
+
 
         elif opcao == "2":
             # Recuperar o pedido_id corretamente (pode ser solicitado ao usuário)
@@ -83,11 +84,16 @@ def main():
             print("Desconto aplicado com sucesso!")
 
         elif opcao == "6":
+            # Recuperar o pedido_id corretamente (pode ser solicitado ao usuário)
             pedido_id = input("Digite o ID do pedido: ")
-            indice = int(input("Digite o índice do produto: "))
-            percentual = float(input("Digite o percentual de aumento: "))
-            pedido_controller.aumentar_preco_produto(pedido_id, indice, percentual)
-            print("Preço do produto aumentado com sucesso!")
+            
+            if pedido_repository.existe_pedido(pedido_id):
+                indice = int(input("Digite o índice do produto: "))
+                percentual = float(input("Digite o percentual de aumento: "))
+                pedido_controller.aumentar_preco_produto(pedido_id, indice, percentual)
+                print("Preço do produto aumentado com sucesso!")
+            else:
+                print("Pedido não encontrado.")
 
         elif opcao == "7":
             pedido_id = input("Digite o ID do pedido: ")

@@ -4,12 +4,10 @@ from domain.repository.pedido_repository import PedidoRepository
 class PedidoService:
     def __init__(self, pedido_repository):
         self.pedido_repository = pedido_repository
-        self.pedidos_processados = []
 
     def processar_pedido(self, pedido):
         total = pedido.calcular_total()
         pedido_id = self.pedido_repository.salvar_pedido(pedido.exibir_pedido(), total)
-        self.pedidos_processados.append(pedido_id)  # Adiciona o ID à lista
         return pedido_id
 
     def exibir_resumo_pedido(self, pedido):
@@ -40,12 +38,8 @@ class PedidoService:
 
     def aumentar_preco_produto(self, pedido_id, indice, percentual):
         pedido = self.pedido_repository.recuperar_pedido(pedido_id)
-            
-        if pedido:
-            pedido.aumentar_preco_produto(indice, percentual)
-            self.pedido_repository.atualizar_pedido(pedido_id, pedido)
-        else:
-            print("Pedido não encontrado.")
+        pedido.aumentar_preco_produto(indice, percentual)
+        self.pedido_repository.atualizar_pedido(pedido_id, pedido)
 
     def adicionar_produto_ao_pedido(self, pedido_id, produto):
         pedido = self.pedido_repository.recuperar_pedido(pedido_id)
@@ -64,6 +58,3 @@ class PedidoService:
 
     def produtos_disponiveis(self):
         return self.pedido_repository.produtos_disponiveis()
-    
-    def recuperar_pedido(self, pedido_id):
-        return self.pedido_repository.recuperar_pedido(pedido_id)

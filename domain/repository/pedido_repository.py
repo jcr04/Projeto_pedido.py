@@ -1,4 +1,5 @@
 import uuid
+
 from domain.models.pedido import Pedido
 from domain.models.produto import Produto
 

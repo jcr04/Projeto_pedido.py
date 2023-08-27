@@ -23,8 +23,6 @@ class PedidoRepository:
 
     def recuperar_pedido(self, pedido_id):
         pedido, _ = self.pedidos.get(pedido_id, (None, None))
-        if pedido is None:
-            return None
         return pedido
 
     def atualizar_pedido(self, pedido_id, novo_pedido):

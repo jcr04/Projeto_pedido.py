@@ -61,7 +61,7 @@ class PedidoController:
     def exibir_pedidos_processados(self):
         for pedido_id in self.pedido_service.pedidos_processados:
             print(f"Pedido ID: {pedido_id} - Produtos: {self.pedido_service.exibir_resumo_pedido(pedido_id)}")
-            
+
     def exibir_produtos_do_pedido(self, pedido_id):
         pedido = self.pedido_service.recuperar_pedido(pedido_id)
         if pedido:
@@ -69,4 +69,5 @@ class PedidoController:
             for i, produto in enumerate(pedido.produtos, start=1):
                 print(f"{i}. {produto.nome} - Preço: R${produto.preco:.2f}")
         else:
-            print("Pedido não encontrado.")
+            print("Pedido não encontrado.")    
+    

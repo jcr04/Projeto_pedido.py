@@ -85,7 +85,7 @@ def main():
 
         elif opcao == "6":
             pedido_id = input("Digite o ID do pedido: ")
-            
+
             if pedido_repository.existe_pedido(pedido_id):
                 pedido_controller.exibir_produtos_do_pedido(pedido_id)  # Mostra os produtos do pedido
                 indice = input("Digite o índice do produto: ")

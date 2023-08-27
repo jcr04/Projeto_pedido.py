@@ -13,8 +13,20 @@ class Pedido:
         return "\n".join(str(produto) for produto in self.produtos)
 
     def exibir_resumo(self):
-        # Implementação para exibir um resumo do pedido
-        pass  # Você deve adicionar a implementação real aqui
+        # Recupere o pedido atual do serviço (você precisará ajustar isso com a lógica do seu código)
+        pedido_atual = self.pedido_service.recuperar_pedido_atual()
+
+        if pedido_atual:
+            print("Resumo do Pedido:")
+            print(f"Pedido ID: {pedido_atual.id}")
+            print("Produtos:")
+            for i, produto in enumerate(pedido_atual.produtos, start=1):
+                print(f"{i}. {produto.nome} - Preço: R${produto.preco:.2f}")
+
+            total = pedido_atual.calcular_total()
+            print(f"Total do Pedido: R${total:.2f}")
+        else:
+            print("Nenhum pedido em andamento.")
 
     def atualizar_produto(self, indice, novo_produto):
         self.produtos[indice] = novo_produto

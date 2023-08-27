@@ -84,14 +84,18 @@ def main():
             print("Desconto aplicado com sucesso!")
 
         elif opcao == "6":
-            # Recuperar o pedido_id corretamente (pode ser solicitado ao usuário)
             pedido_id = input("Digite o ID do pedido: ")
             
             if pedido_repository.existe_pedido(pedido_id):
-                indice = int(input("Digite o índice do produto: "))
-                percentual = float(input("Digite o percentual de aumento: "))
-                pedido_controller.aumentar_preco_produto(pedido_id, indice, percentual)
-                print("Preço do produto aumentado com sucesso!")
+                pedido_controller.exibir_produtos_do_pedido(pedido_id)  # Mostra os produtos do pedido
+                indice = input("Digite o índice do produto: ")
+                if indice.isdigit():
+                    indice = int(indice)
+                    percentual = float(input("Digite o percentual de aumento: "))
+                    pedido_controller.aumentar_preco_produto(pedido_id, indice, percentual)
+                    print("Preço do produto aumentado com sucesso!")
+                else:
+                    print("Índice inválido.")
             else:
                 print("Pedido não encontrado.")
 
@@ -112,6 +116,7 @@ def main():
 
         elif opcao == "9":
             pedido_controller.listar_pedidos()
+            pedido_controller.exibir_pedidos_processados()  # Exibe os pedidos processados
 
         elif opcao == "0":
             break

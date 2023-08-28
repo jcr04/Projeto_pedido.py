@@ -8,11 +8,11 @@ class ArmazenamentoDados:
         if not os.path.exists(self.pedidos_directory):
             os.makedirs(self.pedidos_directory)
 
-    def salvar_pedido(self, pedido_id, pedido, total):
-        self.pedidos[pedido_id] = (pedido, total)
+    def salvar_pedido(self, pedido_id, pedido_info):
+        self.pedidos[pedido_id] = pedido_info
         file_path = os.path.join(self.pedidos_directory, f"pedido_{pedido_id}.txt")
         with open(file_path, "w") as arquivo:
-            arquivo.write(f"Pedido:\n{pedido}\nTotal: R${total:.2f}\n\n")
+            arquivo.write(f"Pedido:\n{pedido_info['pedido']}\nTotal: R${pedido_info['total']:.2f}\n\n")
         print("Pedido salvo com sucesso.")
 
     def recuperar_pedido(self, pedido_id):

@@ -1,0 +1,7 @@
+Pedido:
+Calças
+Sapato
+Bolsa
+Óculos de Sol
+Total: R$339.96
+

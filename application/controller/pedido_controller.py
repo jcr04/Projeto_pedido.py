@@ -43,7 +43,6 @@ class PedidoController:
         self.pedido_repository.atualizar_pedido(pedido_id, pedido)
         print(f"Promoção aplicada com sucesso ao produto {produto}!")
 
-
     def listar_pedidos(self):
         pedidos = self.pedido_service.listar_pedidos()
         for pedido_id, total in pedidos.items():
@@ -90,3 +89,38 @@ class PedidoController:
             if produto.nome == nome_produto:
                 return produto
         return None
+    
+    def exibir_relatorio_vendas_diarias(self):
+        # Obter a lista de pedidos
+        pedidos = self.pedido_service.listar_pedidos()
+
+        # Criar um dicionário para armazenar as vendas por dia
+        vendas_diarias = {}
+
+        for pedido_id, _ in pedidos.items():
+            pedido = self.pedido_service.recuperar_pedido(pedido_id)
+            if pedido:
+                data_pedido = pedido.data_pedido  # Suponha que a classe Pedido tenha um atributo data_pedido
+                dia = data_pedido.strftime("%Y-%m-%d")  # Formatando a data para YYYY-MM-DD
+
+                if dia in vendas_diarias:
+                    vendas_diarias[dia] += pedido.calcular_total()
+                else:
+                    vendas_diarias[dia] = pedido.calcular_total()
+
+        # Exibir o relatório de vendas diárias
+        print("Relatório de Vendas Diárias:")
+        for dia, total_vendas in vendas_diarias.items():
+            print(f"{dia}: R${total_vendas:.2f}")
+        
+    def exibir_produtos_mais_vendidos(self):
+        produtos_mais_vendidos = self.pedido_service.obter_produtos_mais_vendidos()
+        print("Produtos Mais Vendidos:")
+        for produto, quantidade in produtos_mais_vendidos:
+            print(f"{produto}: {quantidade} unidades")
+
+    def exibir_receita_total(self):
+        receita_total = self.pedido_service.calcular_receita_total()
+        print(f"Receita Total: R${receita_total:.2f}")
+        
+    

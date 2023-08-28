@@ -18,6 +18,9 @@ def mostrar_menu():
     print("9. Listar Pedidos")
     print("10. Exibir Produtos em Promoção")
     print("11. Listar Pedidos por Data")
+    print("12. Exibir Relatório de Vendas Diárias")
+    print("13. Exibir Produtos Mais Vendidos")
+    print("14. Exibir Receita Total")
     print("H. Historico de preços")
     print("0. Sair")
     print("=====================================")
@@ -133,6 +136,15 @@ def main():
         elif opcao == "H":
             nome_produto = input("Digite o nome do produto: ")
             pedido_controller.exibir_historico_preco_produto(nome_produto)
+        
+        elif opcao == "12":
+            pedido_controller.exibir_relatorio_vendas_diarias()
+
+        elif opcao == "13":
+            pedido_controller.exibir_produtos_mais_vendidos()
+
+        elif opcao == "14":
+            pedido_controller.exibir_receita_total()
         
 
         elif opcao == "0":

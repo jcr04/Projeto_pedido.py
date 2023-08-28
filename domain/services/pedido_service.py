@@ -73,3 +73,23 @@ class PedidoService:
         for pedido_id, (pedido, _) in self.pedido_repository.pedidos.items():
             produtos_em_promocao.extend(pedido.produtos_em_promocao())
         return produtos_em_promocao
+    
+    def calcular_receita_total(self):
+        return self.pedido_repository.obter_total_vendas()
+
+    def obter_produtos_mais_vendidos(self, quantidade=5):
+        pedidos = self.pedido_repository.listar_pedidos()
+        produtos_vendidos = {}
+
+        for pedido_id, _ in pedidos.items():
+            pedido = self.pedido_repository.recuperar_pedido(pedido_id)
+            
+            if isinstance(pedido, Pedido):  # Verifica se o pedido é um objeto Pedido
+                for produto in pedido.produtos:
+                    if produto.nome in produtos_vendidos:
+                        produtos_vendidos[produto.nome] += 1
+                    else:
+                        produtos_vendidos[produto.nome] = 1
+
+        produtos_mais_vendidos = sorted(produtos_vendidos.items(), key=lambda x: x[1], reverse=True)
+        return produtos_mais_vendidos[:quantidade]

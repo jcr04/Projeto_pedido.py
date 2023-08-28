@@ -18,6 +18,7 @@ def mostrar_menu():
     print("9. Listar Pedidos")
     print("10. Exibir Produtos em Promoção")
     print("11. Listar Pedidos por Data")
+    print("H. Historico de preços")
     print("0. Sair")
     print("=====================================")
 
@@ -128,6 +129,10 @@ def main():
                     print(pedido_info)
             else:
                 print("Nenhum pedido encontrado para a data especificada.")
+        
+        elif opcao == "H":
+            nome_produto = input("Digite o nome do produto: ")
+            pedido_controller.exibir_historico_preco_produto(nome_produto)
         
 
         elif opcao == "0":

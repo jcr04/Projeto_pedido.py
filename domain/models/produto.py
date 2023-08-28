@@ -1,7 +1,9 @@
 class Produto:
     def __init__(self, nome, preco):
         self.nome = nome
+        self.historico_precos = [preco]  # Inicialize com o preço atual
         self.preco = preco
+
 
     def exibir_informacoes(self):
         return f"{self.nome} - R${self.preco:.2f}"
@@ -26,6 +28,9 @@ class Produto:
 
     def exibir_informacoes_promocao(self):
         return f"{self.nome} - R${self.preco:.2f} (Preço original: R${self.preco_original:.2f})"
+    
+    def adicionar_preco_ao_historico(self, novo_preco):
+        self.historico_precos.append(novo_preco)
     
 # criando novos produtos        
 produto_camisa = Produto("Camisa", 39.99)

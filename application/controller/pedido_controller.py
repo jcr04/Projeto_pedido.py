@@ -36,17 +36,13 @@ class PedidoController:
     
     def aplicar_promocao(self, pedido_id, produto, novo_preco):
         pedido = self.pedido_repository.recuperar_pedido(pedido_id)
-        
-        if pedido is None:
-            print("Pedido não encontrado.")
-            return
-        
         for p in pedido.produtos:
             if p.nome == produto:
+                p.adicionar_preco_ao_historico(p.preco)  # Adicione o preço anterior ao histórico
                 p.aplicar_promocao(novo_preco)
-        
         self.pedido_repository.atualizar_pedido(pedido_id, pedido)
         print(f"Promoção aplicada com sucesso ao produto {produto}!")
+
 
     def listar_pedidos(self):
         pedidos = self.pedido_service.listar_pedidos()
@@ -80,4 +76,17 @@ class PedidoController:
         else:
             print("Nenhum produto em promoção.")
             
-    
+    def exibir_historico_preco_produto(self, produto):
+        produto = self.encontrar_produto_por_nome(produto)
+        if produto:
+            print(f"Histórico de Preços para {produto.nome}:")
+            for i, preco in enumerate(produto.historico_precos, start=1):
+                print(f"{i}. R${preco:.2f}")
+        else:
+            print("Produto não encontrado.")
+
+    def encontrar_produto_por_nome(self, nome_produto):
+        for produto in self.pedido_service.produtos_disponiveis():
+            if produto.nome == nome_produto:
+                return produto
+        return None

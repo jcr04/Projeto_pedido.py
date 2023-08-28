@@ -16,6 +16,8 @@ def mostrar_menu():
     print("7. Adicionar Produto ao Pedido")
     print("8. Aplicar Promoção")
     print("9. Listar Pedidos")
+    print("10. Exibir Produtos em Promoção")
+    print("11. Listar Pedidos por Data")
     print("0. Sair")
     print("=====================================")
 
@@ -30,7 +32,7 @@ def main():
         opcao = input("Escolha uma opção: ")
 
         if opcao == "1":
-            pedido_controller.exibir_produtos_disponiveis()  # Mostra os produtos disponíveis
+            pedido_controller.exibir_produtos_disponiveis()
             produtos_escolhidos = []
             while True:
                 escolha_produto = input("Escolha um produto (ou '0' para finalizar): ")
@@ -50,14 +52,12 @@ def main():
                 pedido = Pedido()
                 for produto in produtos_escolhidos:
                     pedido.adicionar_produto(produto)
-                pedido_controller.processar_pedido(pedido)  # Passe o pedido como argumento
+                pedido_controller.processar_pedido(pedido)
                 print("Pedido processado com sucesso!")
             else:
                 print("Nenhum produto foi adicionado ao pedido.")
 
-
         elif opcao == "2":
-            # Recuperar o pedido_id corretamente (pode ser solicitado ao usuário)
             pedido_id = input("Digite o ID do pedido: ")
             pedido = pedido_repository.recuperar_pedido(pedido_id)
             if pedido is not None:
@@ -69,7 +69,6 @@ def main():
             pedido_controller.exibir_total_vendas()
 
         elif opcao == "4":
-            # Recuperar o pedido_id corretamente (pode ser solicitado ao usuário)
             pedido_id = input("Digite o ID do pedido: ")
             pedido = pedido_repository.recuperar_pedido(pedido_id)
             if pedido is not None:
@@ -87,7 +86,7 @@ def main():
             pedido_id = input("Digite o ID do pedido: ")
             
             if pedido_repository.existe_pedido(pedido_id):
-                pedido_controller.exibir_produtos_do_pedido(pedido_id)  # Mostra os produtos do pedido
+                pedido_controller.exibir_produtos_do_pedido(pedido_id)
                 indice = input("Digite o índice do produto: ")
                 if indice.isdigit():
                     indice = int(indice)
@@ -116,7 +115,20 @@ def main():
 
         elif opcao == "9":
             pedido_controller.listar_pedidos()
-            pedido_controller.exibir_pedidos_processados()  # Exibe os pedidos processados
+            pedido_controller.exibir_pedidos_processados()
+
+        elif opcao == "10":
+            pedido_controller.exibir_produtos_em_promocao()
+
+        elif opcao == "11":
+            data = input("Digite a data no formato AAAA-MM-DD: ")
+            pedidos_por_data = armazenamento.obter_pedidos_por_data(data)
+            if pedidos_por_data:
+                for pedido_info in pedidos_por_data:
+                    print(pedido_info)
+            else:
+                print("Nenhum pedido encontrado para a data especificada.")
+        
 
         elif opcao == "0":
             break

@@ -1,0 +1,4 @@
+Pedido:
+Chapéu
+Total: R$29.99
+

@@ -67,3 +67,9 @@ class PedidoService:
     
     def recuperar_pedido(self, pedido_id):
         return self.pedido_repository.recuperar_pedido(pedido_id)
+    
+    def produtos_em_promocao(self):
+        produtos_em_promocao = []
+        for pedido_id, (pedido, _) in self.pedido_repository.pedidos.items():
+            produtos_em_promocao.extend(pedido.produtos_em_promocao())
+        return produtos_em_promocao

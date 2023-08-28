@@ -20,6 +20,13 @@ class Produto:
 
     def aplicar_promocao(self, nova_preco):
         self.preco = nova_preco
+        
+    def esta_em_promocao(self):
+        return self.preco < self.preco_original
+
+    def exibir_informacoes_promocao(self):
+        return f"{self.nome} - R${self.preco:.2f} (Preço original: R${self.preco_original:.2f})"
+    
 # criando novos produtos        
 produto_camisa = Produto("Camisa", 39.99)
 produto_calcas = Produto("Calças", 69.99)

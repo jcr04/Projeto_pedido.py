@@ -70,3 +70,12 @@ class PedidoController:
                 print(f"{i}. {produto.nome} - Preço: R${produto.preco:.2f}")
         else:
             print("Pedido não encontrado.")
+            
+    def exibir_produtos_em_promocao(self):
+        produtos_em_promocao = self.pedido_service.produtos_em_promocao()
+        if produtos_em_promocao:
+            print("Produtos em promoção:")
+            for produto in produtos_em_promocao:
+                print(produto.exibir_informacoes_promocao())
+        else:
+            print("Nenhum produto em promoção.")

@@ -53,3 +53,14 @@ class Pedido:
     def calcular_total_com_desconto(self, percentual):
         total = self.calcular_total()
         return total - total * percentual / 100
+    
+    def aplicar_desconto_global(self, percentual):
+        for produto in self.produtos:
+            produto.aplicar_desconto(percentual)
+
+    def calcular_total_com_desconto_global(self, percentual):
+        total_com_desconto = self.calcular_total() * (1 - percentual / 100)
+        return total_com_desconto
+
+    def produtos_em_promocao(self):
+        return [produto for produto in self.produtos if produto.esta_em_promocao()]

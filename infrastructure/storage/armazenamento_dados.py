@@ -58,3 +58,11 @@ class ArmazenamentoDados:
         for pedido_id, (pedido, total) in self.pedidos.items():
             pedidos[pedido_id] = (pedido, total)
         return pedidos
+    
+    def obter_pedidos_por_data(self, data):
+        pedidos_por_data = []
+        for filename in os.listdir(self.pedidos_directory):
+            if data in filename:
+                with open(os.path.join(self.pedidos_directory, filename), "r") as arquivo:
+                    pedidos_por_data.append(arquivo.read())
+        return pedidos_por_data

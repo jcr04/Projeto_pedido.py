@@ -84,3 +84,10 @@ class PedidoRepository:
     
     def existe_pedido(self, pedido_id):
         return pedido_id in self.pedidos
+    
+    def obter_pedidos_por_data(self, data):
+        pedidos_por_data = []
+        for pedido_id, (pedido, _) in self.pedidos.items():
+            if data in pedido_id:
+                pedidos_por_data.append(pedido)
+        return pedidos_por_data
